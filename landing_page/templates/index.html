@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Welcome to my Flask Application</h1>
+  <p>Enter your name and phone number:</p>
+  <form method="POST" action="{{ url_for('register') }}">
+    <label for="name">Name:</label>
+    <input type="text" name="name" id="name">
+
+    <label for="phone">Phone number:</label>
+    <input type="text" name="phone" id="phone">
+
+    <button type="submit">Register</button>
+  </form>
+{% endblock %}
