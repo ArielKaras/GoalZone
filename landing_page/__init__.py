@@ -1,9 +1,54 @@
-from flask import Flask
-from landing_page.views.main import landing_page, register
+from flask import Flask, request, render_template, redirect, url_for
+from landing_page.config import MAINTENANCE_MODE
+import pandas as pd
+import os
 
-app = Flask(__name__)
-app.config.from_object('config')
+app = Flask(__name__)  # Create the Flask app
+app.config.from_object('landing_page.config')  # Load the configuration from the config.py file
 
 
-app.add_url_rule('/', view_func=landing_page)
-app.add_url_rule('/register', view_func=register, methods=['POST'])
+@app.before_request
+def maintenance_mode():
+    if app.config['MAINTENANCE_MODE']:  # If the app is in maintenance mode
+        if request.endpoint in ['landing_page',
+                                'register']:  # If the user is trying to access the landing page or register page
+            return redirect(url_for('maintenance'))  # Redirect them to the maintenance page
+
+
+@app.route('/maintenance')
+def maintenance():
+    if not app.config['MAINTENANCE_MODE']:  # If the app is not in maintenance mode
+        return redirect(url_for('landing_page'))  # Redirect them to the landing page
+    return render_template('maintenance.html')  # Render the maintenance page template
+
+
+@app.route('/')
+def landing_page():
+    return render_template('landing_page.html')
+
+
+@app.route('/register', methods=['POST'])
+def register():
+    name = request.form['name']
+    phone = request.form['phone']
+
+    # Create a DataFrame with the new data
+    data = {'Name': [name], 'Phone': [phone]}
+    df = pd.DataFrame(data)
+
+    # Check if the Excel file already exists
+    if os.path.isfile('Students.xlsx'):
+        # If it exists, load the existing data into a DataFrame
+        existing_df = pd.read_excel('Students.xlsx')
+
+        # Append the new data to the existing DataFrame
+        df = pd.concat([existing_df, df])
+
+    # Save the updated DataFrame to the Excel file
+    df.to_excel('Students.xlsx', index=False)
+
+    return 'Thank you for registering!'
+
+
+if __name__ == '__main__':
+    app.run(debug=True)  # Run the app in debug mode (for development)
