@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>ברוכים הבאים לאתר הרשמה לשירות</h1>
-  <p>:נא להזין את שמך ואת מספר הטלפון</p>
-  <form method="POST" action="{{ url_for('register') }}">
-    <label for="name">Name:</label>
-    <input type="text" name="name" id="name">
 
-    <label for="phone">Phone Number:</label>
-    <input type="text" name="phone" id="phone">
-
-    <button type="submit">Register</button>
-  </form>
+  <div id="login-box">
+  <div class="left">
+    <h1>Welcome to Our Soccer service</h1>
+    <h1>Sign up</h1>
+    <form method="POST" action="{{ url_for('register') }}">
+      <input type="text" name="name" placeholder="Full name" />
+      <input type="text" name="phone" placeholder="Phone number" />
+      <input type="submit" name="signup_submit" value="Register" />
+    </form>
+    </div>
+</div>
 {% endblock %}
