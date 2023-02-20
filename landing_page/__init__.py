@@ -1,4 +1,6 @@
-from flask import Flask, request, render_template, redirect, url_for
+import time
+
+from flask import Flask, request, render_template, redirect, url_for, flash
 from landing_page.config import MAINTENANCE_MODE
 import pandas as pd
 import os
@@ -29,15 +31,15 @@ def landing_page():
 
 @app.route('/register', methods=['POST'])
 def register():
-    name = request.form['name']
-    phone = request.form['phone']
+    name = request.form['name']  # Get the name from the form
+    phone = request.form['phone']  # Get the phone number from the form
 
     # Create a DataFrame with the new data
-    data = {'Name': [name], 'Phone': [phone], 'Date': [pd.Timestamp.now()]}
-    df = pd.DataFrame(data)
+    data = {'Name': [name], 'Phone': [phone], 'Date': [pd.Timestamp.now()]}  # Create a dictionary with the data
+    df = pd.DataFrame(data)  # Create a DataFrame from the dictionary
 
-    # Check if the Excel file already exists
-    if os.path.isfile('Students.xlsx'):
+    if os.path.isfile('Students.xlsx'):  # Check if the Excel file already exists
+
         # If it exists, load the existing data into a DataFrame
         existing_df = pd.read_excel('Students.xlsx')
 
@@ -47,7 +49,8 @@ def register():
     # Save the updated DataFrame to the Excel file
     df.to_excel('Students.xlsx', index=False)
 
-    return 'Thank you for registering!'
+    flash('Thank you for registering!') # Display a flash message
+    return redirect(url_for('landing_page'))
 
 
 if __name__ == '__main__':
