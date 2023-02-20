@@ -33,7 +33,7 @@ def register():
     phone = request.form['phone']
 
     # Create a DataFrame with the new data
-    data = {'Name': [name], 'Phone': [phone]}
+    data = {'Name': [name], 'Phone': [phone], 'Date': [pd.Timestamp.now()]}
     df = pd.DataFrame(data)
 
     # Check if the Excel file already exists
