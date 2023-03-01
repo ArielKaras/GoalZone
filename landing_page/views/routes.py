@@ -34,4 +34,4 @@ def register():
     df.to_excel('Students.xlsx', index=False)
 
     flash('Thank you for registering!')  # Display a flash message
-    return redirect(url_for('landing_page'))
+    return redirect(url_for('views.landing_page'))  # Redirect to the landing page
