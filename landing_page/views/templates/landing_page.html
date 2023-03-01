@@ -1,14 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
   <div id="login-box">
-  <div class="left">
-    <h1>Welcome to Our Soccer service</h1>
-    <h1>Sign up</h1>
-    <form method="POST" action="{{ url_for('register') }}">
-      <input type="text" name="name" placeholder="Full name" />
-      <input type="text" name="phone" placeholder="Phone number" />
-      <input type="submit" name="signup_submit" value="Register" />
-    </form>
+    <div class="left">
+      <h1>Welcome to Our Soccer service</h1>
+      <h1>Sign up</h1>
+      <form method="POST" action="{{ url_for('register') }}">
+        <input type="text" name="name" placeholder="Full name" />
+        <input type="text" name="phone" placeholder="Phone number" />
+        <input type="submit" name="signup_submit" value="Register" />
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class="flashes">
+              {% for message in messages %}
+                <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+      </form>
     </div>
-</div>
- {% endblock %}
+  </div>
+{% endblock %}
