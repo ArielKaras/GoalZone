@@ -17,7 +17,7 @@ Thanks for visiting, and we hope you enjoy using our soccer website!
 
 2. GitHub: The project source code is stored in a GitHub repository, and team members will need to have a GitHub account to access the code.
 
-3. Django: The project is built using the Django web framework, and developers will need to have a basic understanding of Django to contribute to the project.
+3. Flask: The project is built using the Flask web framework, and developers will need to have a basic understanding of Flask to contribute to the project.
 
 4. Docker files: The project uses Docker files to manage the deployment and scaling of the application. Familiarity with Docker and containerization is required for contributing to the project.
 
@@ -33,9 +33,12 @@ Note: The above prerequisites and dependencies are subject to change as the proj
 
 
 ## Installing and Using the Project:
+1. Clone the Repository
+2. Install Dependencies
+3. Run the Application Locally
+4. Run the Application in Docker
 
-
-Note: The instructions will be released soon. 
+Note: The following instructions are a general guide for installing and using the project. For more detailed information, please consult the project's documentation and user guide. 
 
 
 ## Contributing
