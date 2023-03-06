@@ -1,3 +1,6 @@
+"""
+Here we test the routes of our landing page
+"""
 import unittest
 from flask import url_for
 from landing_page.app import create_flask_app
