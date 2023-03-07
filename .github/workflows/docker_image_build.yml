@@ -15,4 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file /landing_page/build/Landing_page.Dockerfile --tag landing_page:$(date +%s)
+      run: docker build . --file landing_page/build/Landing_page.Dockerfile --tag landing_page:$(date +%s)
