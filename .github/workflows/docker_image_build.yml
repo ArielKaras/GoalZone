@@ -16,8 +16,12 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file landing_page/build/Landing_page.Dockerfile --tag landing_page:$(date +%s)
 
-    - name: Check for vulnerabilities with Snyk
+    - name: List Docker images
+      run: docker images
+
+    - name: Run Snyk to check Docker image for vulnerabilities
       uses: snyk/actions/docker@master
+
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
