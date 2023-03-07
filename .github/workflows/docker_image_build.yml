@@ -7,12 +7,26 @@ on:
     branches: [ "Test" ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
+
     - name: Build the Docker image
       run: docker build . --file landing_page/build/Landing_page.Dockerfile --tag landing_page:$(date +%s)
+
+    - name: Check for vulnerabilities with Snyk
+      uses: snyk/actions/docker@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        image: landing_page:$(date +%s)
+        args: --file=landing_page/build/Landing_page.Dockerfile --exclude-base-image-vulns
+
+    - name: Store artifact if no vulnerabilities found
+      if: steps.check.outputs.vulnerabilities == '[]'
+      uses: actions/upload-artifact@v2
+      with:
+        name: landing_page-image
+        path: /app/landing_page/build
