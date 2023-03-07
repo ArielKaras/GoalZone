@@ -7,6 +7,7 @@ ENV PATH="${PATH}:${FLASK_APP}"
 COPY  ${GITHUB_ACTION} .
 RUN apt-get update
 RUN apt remove -fy libaom0:amd64
+RUN  echo "PWD is: $PWD" && ls -la
 RUN pip install -r ${GITHUB_ACTION}requirements.txt
 RUN export FLASK_APP=${FLASK_APP}
 CMD ["flask", "run", "--host=0.0.0.0", "--port=80"]
